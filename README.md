@@ -1,4 +1,4 @@
-Weather Forecast Application
+#Weather Forecast Application
 Overview
 This project is a fully functional weather forecast application that allows users to view weather conditions for their current location or search for weather data by city name. The application is designed with a clean and user-friendly interface and integrates real-time weather data using a weather API. The primary focus is on providing accurate weather details, including temperature, humidity, wind speed, and weather conditions like sunny, cloudy, or rainy.
 
