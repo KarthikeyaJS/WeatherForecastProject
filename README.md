@@ -1,10 +1,12 @@
-#Weather Forecast Application
-Overview
+
 This project is a fully functional weather forecast application that allows users to view weather conditions for their current location or search for weather data by city name. The application is designed with a clean and user-friendly interface and integrates real-time weather data using a weather API. The primary focus is on providing accurate weather details, including temperature, humidity, wind speed, and weather conditions like sunny, cloudy, or rainy.
 
 Key Features
+
 Real-time Weather Data: The application fetches live weather data from a reliable weather API based on the user's input or current location.
+
 User Location Detection: Automatically detects the user's location to provide accurate and immediate weather updates.
+
 Search Functionality: Users can search for weather conditions by city, enabling them to check the weather in any region worldwide.
 Dynamic Backgrounds: The background image of the application changes dynamically based on the current weather condition (e.g., sunny, rainy, or cloudy), enhancing user experience.
 Responsive Design: Optimized for various screen sizes, ensuring compatibility across devices including desktops, tablets, and smartphones.
