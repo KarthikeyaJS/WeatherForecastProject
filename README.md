@@ -42,6 +42,7 @@ Home Page: Users are greeted with an intuitive interface that either displays th
 Weather Data Display: Once the user enters a city or uses location detection, the app shows weather details such as temperature, humidity, wind speed, and conditions. Background changes dynamically based on weather conditions.
 
 How It Works
+
 The app interacts with the weather API to fetch current weather data.
 MongoDB is used for storing user data such as preferences or previous searches.
 Users can access the app via both desktop and mobile devices due to the responsive design.
