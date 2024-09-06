@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="weather/download.jpg">
+    <link rel="stylesheet" href="styles.css">
+    <title>Weather Forecast Login Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('weather/back1.png') repeat, linear-gradient(to right, #6a11cb, #2575fc);
+            background-size: 800px 800px, cover; /* Adjust icon size and repeat */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+            width: 100%;
+            height: 100%;
+            max-height: 500px;
+            max-width: 500px;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #333;
+        }
+
+        .font {
+            font-size: 1.25rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type=email],
+        input[type=password] {
+            width: calc(100% - 20px);
+            padding: 15px;
+            margin: 8px 0px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type=email]:focus,
+        input[type=password]:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #2575fc;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e67d5;
+        }
+
+        #email_error,
+        #pass_error {
+            color: #f44336;
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        .c3 {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .c3 h3 {
+            margin: 0;
+        }
+
+        .c3 a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+
+        .c3 a:hover {
+            text-decoration: underline;
+        }
+
+        .c3 p {
+            margin: 0;
+        }
+
+        .c3 p a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+
+        .c3 p a:hover {
+            text-decoration: underline;
+        }
+
+        a {
+            color: #2575fc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>User Login</h1>
+        <form id="loginForm">
+            <div class="font">Email Id</div>
+            <input autocomplete="off" type="email" name="email" placeholder="Enter the email here" required>
+            <div id="email_error">Please fill up your Email id</div>
+
+            <div class="font">Password</div>
+            <input type="password" name="password" placeholder="Enter the password here" required>
+            <div id="pass_error">Please fill up your Password</div>
+
+            <button type="submit">Login</button>
+            <div class="c3">
+                <h3><a href="forgotpass.html">Forgot password?</a></h3>
+            </div>
+            <div class="c3">
+                <p>Don't have an account? <a href="signup.html">Sign Up Here</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Login successful! Welcome ' + data.user.firstName + ' ' + data.user.lastName);
+                    window.location.href = 'weather.html';
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>

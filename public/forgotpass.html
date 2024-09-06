@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forgot Password Page</title>
+    <link rel="icon" href="weather/download.jpg">
+    <link rel="stylesheet" href="weather/bootstrap.min.css">
+    <link rel="stylesheet" href="weather/style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right,  #0072ff,#00c6ff);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .label {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .pass_form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pass_form .font {
+            font-size: 1rem;
+            color: #333;
+            margin: 10px 0 5px;
+        }
+
+        .pass_form input {
+            height: 40px;
+            padding: 0 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .pass_form button {
+            height: 45px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .pass_form button:hover {
+            background: #0056b3;
+        }
+
+        .pass_form #password_error,
+        .pass_form #pass_error {
+            font-size: 0.875rem;
+            color: #dc3545;
+            background: rgba(220, 53, 69, 0.1);
+            padding: 10px;
+            border: 1px solid #dc3545;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="label">Forgot Password</h1>
+        <form class="pass_form" id="resetForm">
+            <label class="font">Email</label>
+            <input type="email" placeholder="Enter your email" name="email" required>
+            <label class="font">Date of Birth</label>
+            <input type="date" placeholder="Enter your date of birth" name="dob" required>
+            <label class="font">New Password</label>
+            <input type="password" placeholder="At least 6 characters" name="password" required>
+            <div id="password_error">Password must be at least 6 characters</div>
+            <label class="font">Confirm Password</label>
+            <input type="password" placeholder="Confirm your password" name="passwordConfirm" required>
+            <div id="pass_error">Passwords do not match</div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('resetForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+            
+            const passwordError = document.getElementById('password_error');
+            const passError = document.getElementById('pass_error');
+            
+            passwordError.style.display = 'none';
+            passError.style.display = 'none';
+            
+            // Validate password length
+            if (data.password.length < 6) {
+                passwordError.style.display = 'block';
+                return;
+            }
+            
+            // Validate passwords match
+            if (data.password !== data.passwordConfirm) {
+                passError.style.display = 'block';
+                return;
+            }
+            
+            try {
+                const response = await fetch('/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert(result.message);
+                    window.location.href = 'index.html'; // Redirect to another page upon success
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
